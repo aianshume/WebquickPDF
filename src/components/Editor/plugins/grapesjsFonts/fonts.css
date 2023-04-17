@@ -17,8 +17,7 @@
 .grapesjs-fonts .silex-bar > * {
   margin: 5px;
 }
-.grapesjs-fonts input {
-}
+
 .grapesjs-fonts button {
   padding: 5px;
   margin: 5px;
@@ -27,4 +26,8 @@
 .grapesjs-fonts .silex-list__item__footer {
   display: flex;
   justify-content: flex-end;
+}
+
+.grapesjs-fonts footer {
+  margin-top: 30px;
 }

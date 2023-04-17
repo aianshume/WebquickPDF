@@ -1,8 +1,8 @@
-import {html, render} from 'lit-html'
-import {live} from 'lit-html/directives/live.js'
+import { html, render } from 'lit-html'
+import { live } from 'lit-html/directives/live.js'
 import { map } from 'lit-html/directives/map.js'
-import {styleMap} from 'lit-html/directives/style-map.js'
-import {ref, createRef} from 'lit-html/directives/ref.js'
+import { styleMap } from 'lit-html/directives/style-map.js'
+import { ref, createRef } from 'lit-html/directives/ref.js'
 
 const el = document.createElement('div')
 let modal
@@ -19,6 +19,7 @@ const LS_FONTS = 'silex-loaded-fonts-list'
  */
 let _fontsList
 let fonts
+let globalFont
 let defaults = []
 
 /**
@@ -27,7 +28,7 @@ let defaults = []
  */
 try {
     _fontsList = JSON.parse(localStorage.getItem(LS_FONTS))
-} catch(e) {
+} catch (e) {
     console.error('Could not get fonts from local storage:', e)
 }
 
@@ -76,7 +77,7 @@ async function loadFontList(url) {
 
 export const fontsDialogPlugin = (editor, opts) => {
     defaults = editor.StyleManager.getBuiltIn('font-family').options
-    if(!opts.api_key) throw new Error("You must provide Google font api key")
+    if (!opts.api_key) throw new Error("You must provide Google font api key")
     editor.Commands.add(cmdOpenFonts, {
         /* eslint-disable-next-line */
         run: (_, sender) => {
@@ -149,30 +150,30 @@ function displayFonts(editor, config, fontsList) {
             type="text"
             ${ref(searchInputRef)}
             @keydown=${() => {
-        //(fontRef.value as HTMLSelectElement).selectedIndex = 0
-        setTimeout(() => displayFonts(editor, config, fontsList))
-    }}/>
+            //(fontRef.value as HTMLSelectElement).selectedIndex = 0
+            setTimeout(() => displayFonts(editor, config, fontsList))
+        }}/>
           <select
             style=${styleMap({
-        width: '150px',
-    })}
+            width: '150px',
+        })}
             ${ref(fontRef)}
           >
-            ${ map(activeFonts, f => html`
+            ${map(activeFonts, f => html`
               <option value=${f['family']}>${f['family']}</option>
             `)}
           </select>
           <button class="silex-button"
             ?disabled=${!fontRef.value || activeFonts.length === 0}
             type="button" @click=${() => {
-        addFont(
-            editor,
-            config,
-            fonts,
-            activeFonts[fontRef.value.selectedIndex]
-        )
-        displayFonts(editor, config, fontsList)
-    }}>
+            addFont(
+                editor,
+                config,
+                fonts,
+                activeFonts[fontRef.value.selectedIndex]
+            )
+            displayFonts(editor, config, fontsList)
+        }}>
         Install font
           </button>
         </div>
@@ -182,7 +183,7 @@ function displayFonts(editor, config, fontsList) {
         class="silex-form__element">
         <h2>Installed fonts</h2>
         <ol class="silex-list">
-        ${ map(fonts, f => html`
+        ${map(fonts, f => html`
           <li>
             <div class="silex-list__item__header">
               <h4>${f.name}</h4>
@@ -196,42 +197,52 @@ function displayFonts(editor, config, fontsList) {
                   name="name"
                   .value=${live(f.value)}
                   @change=${e => {
-        updateRules(editor, fonts, f, e.target.value)
-        displayFonts(editor, config, fontsList)
-    }}
+                updateRules(editor, fonts, f, e.target.value)
+                displayFonts(editor, config, fontsList)
+            }}
                 />
               </fieldset>
               <fieldset class="silex-group--simple full-width">
                 <legend>Variants</legend>
-                ${ map(
-        // keep only variants which are letters, no numbers
-        // FIXME: we need the weights
-        findFont(f)?.variants.filter(v => v.replace(/[a-z]/g, '') === ''),
-        v => html`
+                ${map(
+                // keep only variants which are letters, no numbers
+                // FIXME: we need the weights
+                findFont(f)?.variants.filter(v => v.replace(/[a-z]/g, '') === ''),
+                v => html`
                   <div>
                     <input
-                      id=${ f.name + v }
+                      id=${f.name + v}
                       type="checkbox"
                       value=${v}
                       ?checked=${f.variants?.includes(v)}
                       @change=${e => {
-        updateVariant(editor, fonts, f, v, e.target.checked)
-        displayFonts(editor, config, fontsList)
-    }}
-                    /><label for=${ f.name + v }>${v}</label>
+                        updateVariant(editor, fonts, f, v, e.target.checked)
+                        displayFonts(editor, config, fontsList)
+                    }}
+                    /><label for=${f.name + v}>${v}</label>
                   </div>
                 `)}
               </fieldset>
             </div>
             <div class="silex-list__item__footer">
               <button class="silex-button" type="button" @click=${() => {
-        removeFont(editor, fonts, f)
-        displayFonts(editor, config, fontsList)
-    }}>Remove</button>
+                removeFont(editor, fonts, f)
+                displayFonts(editor, config, fontsList)
+            }}>Remove</button>
             </div>
           </li>
-        `) }
+        `)}
         </ol>
+        <h2>set global font</h2>
+        <select name="fonts" @change=${e => {
+            globalFont = e.target.value;
+            console.log(globalFont)
+        }}>
+        <option value="null">select</option>
+        ${map(fonts, font => html`
+        <option value="${font.name}">${font.name}</option>
+        `)}
+        </select>
       </div>
       <footer>
         <input class="silex-button" type="button" @click=${() => editor.stopCommand(cmdOpenFonts)} value="Cancel">
@@ -253,7 +264,7 @@ function removeFont(editor, fonts, font) {
 }
 
 function insertOnce(doc, attr, tag, attributes) {
-    if(!doc.head.querySelector(`[${ attr }]`)) {
+    if (!doc.head.querySelector(`[${attr}]`)) {
         insert(doc, attr, tag, attributes)
     }
 }
@@ -263,8 +274,9 @@ function insert(doc, attr, tag, attributes) {
     Object.keys(attributes).forEach(key => el.setAttribute(key, attributes[key]))
     doc.head.appendChild(el)
 }
+
 function removeAll(doc, attr) {
-    Array.from(doc.head.querySelector(`[${ attr }]`))
+    Array.from(doc.head.querySelector(`[${attr}]`))
         .forEach((el) => el.remove())
 }
 const GOOGLE_APIS_ATTR = 'data-silex-google-apis'
@@ -295,6 +307,9 @@ function updateHead(editor, fonts) {
         const variants = prefix + f.variants.map(v => v.replace(/\d+/g, '')).filter(v => !!v).join(',')
         insert(doc, GOOGLE_FONTS_ATTR, 'link', { 'href': `https://fonts.googleapis.com/css?family=${f.name.replace(/ /g, '+')}${variants}&display=swap`, 'rel': 'stylesheet' })
     })
+
+    // add global font in css
+    doc.head.insertAdjacentHTML('beforeend', `<style>*{font-family: '${globalFont}', serif;}</style>`);
 }
 
 function updateUi(editor, fonts, opts) {
@@ -313,6 +328,6 @@ function updateRules(editor, fonts, font, value) {
 }
 function updateVariant(editor, fonts, font, variant, checked) {
     const has = font.variants?.includes(variant)
-    if(has && !checked) font.variants = font.variants.filter(v => v !== variant)
-    else if(!has && checked) font.variants.push(variant)
+    if (has && !checked) font.variants = font.variants.filter(v => v !== variant)
+    else if (!has && checked) font.variants.push(variant)
 }
