@@ -74,13 +74,13 @@ export default class PagesApp extends UI {
     }
 
     addPage() {
-        const { pm } = this;
+        const { pm, opts } = this;
         const { pageNumber } = this.state
-        // console.log(pageNumber)
         if (!pageNumber) return;
         pm.add({
             name: `page ${pageNumber + 1}`,
             id: `${pageNumber + 1}`,
+            styles: `body {  width: ${opts?.width}px; height: ${opts?.height}px;}`,
             component: ''
         });
         this.update();

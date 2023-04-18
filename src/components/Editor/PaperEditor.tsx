@@ -44,7 +44,7 @@ export function PaperEditor({ id, config, onSave, canvasSize }: GrapesJSProps) {
           {
             name: "page 1",
             id: '1',
-            styles: `.my-class { color: red }`, // or a JSON of styles
+            styles: `body {  width: ${canvasSize?.width}px; height: ${canvasSize?.height}px;}`,
             component: '<div class="my-class">My element</div>', // or a JSON of components
           }
        ]
@@ -55,6 +55,10 @@ export function PaperEditor({ id, config, onSave, canvasSize }: GrapesJSProps) {
         [grapesjsFontPlugin]: {
           // api_key: "AIzaSyBIbeXm8jJu47tuBj2ubDzjLlLgAmtD07s"
           api_key: "AIzaSyAdJTYSLPlKz4w5Iqyy-JAF2o8uQKd1FKc"
+        },
+        [grapesjsPageManagerPlugin]: {
+          width: `${canvasSize?.width}px`, // new page width
+          height: `${canvasSize?.height}px`, // new page height
         }
       }
     });
