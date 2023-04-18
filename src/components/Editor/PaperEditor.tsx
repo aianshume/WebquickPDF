@@ -1,13 +1,16 @@
 import { useEffect, useRef } from "react";
 // @ts-ignore
-import grapesjs, { Editor } from "grapesjs";
+import grapesjs from "grapesjs";
 import 'grapesjs/dist/css/grapes.min.css'
 import gjsBasicBlock from "grapesjs-blocks-basic"
 import gjsPluginExport from "grapesjs-plugin-export"
 import basicCustomPlugin from './plugins/blocksPlugin'
 // @ts-ignore
 import grapesjsFontPlugin from "./plugins/grapesjsFonts"
+// @ts-ignore
+import grapesjsPageManagerPlugin from './plugins/pageManger'
 import "styles/designer.css"
+import "./plugins/pageManger/css/grapesjs-project-manager.min.css"
 
 interface GrapesJSProps {
   id: string;
@@ -37,7 +40,7 @@ export function PaperEditor({ id, config, onSave, canvasSize }: GrapesJSProps) {
         ],
       },
       storageManager: false,
-      plugins: [gjsBasicBlock, basicCustomPlugin, grapesjsFontPlugin, gjsPluginExport],
+      plugins: [gjsBasicBlock, basicCustomPlugin, grapesjsFontPlugin, gjsPluginExport, grapesjsPageManagerPlugin],
       pluginsOpts: {
         [grapesjsFontPlugin]: {
           // api_key: "AIzaSyBIbeXm8jJu47tuBj2ubDzjLlLgAmtD07s"
@@ -53,6 +56,16 @@ export function PaperEditor({ id, config, onSave, canvasSize }: GrapesJSProps) {
       attributes: { title: 'Save' },
       category: 'Custom Category', // add a new category for the custom icon
     });
+
+    editor.Panels.addButton('views', {
+      id: 'open-pages',
+      className: 'fa fa-file-o',
+      attributes: {
+          title: 'Take Screenshot'
+      },
+      command: 'open-pages',
+      togglable: false
+  }); 
 
     if (onSave) {
       editor.Commands.add("save", {
