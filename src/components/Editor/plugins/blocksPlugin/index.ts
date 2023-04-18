@@ -1,3 +1,7 @@
+/**
+ * blocks are big components like header, footer, layouts, cards
+ */
+
 import { Editor } from 'grapesjs';
 
 const myPlugin = (editor: Editor, opts = {}) => {

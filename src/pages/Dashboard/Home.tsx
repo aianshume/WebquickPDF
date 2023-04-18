@@ -23,12 +23,12 @@ export default function Home() {
   const syncAllCompany = () => {
     dispatch(fetchCompanies())
       .then(unwrapResult)
-      .then(async (res) => {
+      .then((res) => {
         setData("company", "companies", res);
       });
   };
 
-  const getDataFromTauriStorage = async () => {
+  const getDataFromIdbStorage = async () => {
     let data: any = await getData("company", "companies");
     console.log(data)
     if (data !== null) {
@@ -37,7 +37,7 @@ export default function Home() {
   };
 
   useEffect(() => {
-    getDataFromTauriStorage();
+    getDataFromIdbStorage();
   }, []);
 
   return (

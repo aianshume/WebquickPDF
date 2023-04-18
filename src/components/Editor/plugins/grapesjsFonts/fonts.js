@@ -310,6 +310,8 @@ function updateHead(editor, fonts) {
 
     // add global font in css
     doc.head.insertAdjacentHTML('beforeend', `<style>*{font-family: '${globalFont}', serif;}</style>`);
+    // add font to style while exporting
+    editor.Css.setRule('*', { 'font-family': `'${globalFont}'` });
 }
 
 function updateUi(editor, fonts, opts) {

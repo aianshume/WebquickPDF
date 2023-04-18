@@ -1,8 +1,7 @@
 const idb = window.indexedDB;
 
 export function setData(databaseName: string, storeName: string, values: any[]) {
-  // Create a new IndexedDB database with the given name
-  const request = idb.open(databaseName, 1);
+  const request = idb.open(databaseName, 2);
 
   // Set up an event listener for the upgradeneeded event
   request.onupgradeneeded = function(event: any) {
@@ -42,7 +41,7 @@ export function setData(databaseName: string, storeName: string, values: any[]) 
 export function getData(databaseName: string, storeName: string): Promise<any[]> {
   return new Promise((resolve, reject) => {
     // Open a connection to the database
-    const request = idb.open(databaseName, 1);
+    const request = idb.open(databaseName, 2);
 
     // Set up an event listener for the error event
     request.onerror = function(event: any) {
@@ -69,7 +68,7 @@ export function getData(databaseName: string, storeName: string): Promise<any[]>
           reject(event.target.error);
         };
       } else {
-        reject(`Object store ${storeName} does not exist`);
+        reject(`Object store ${storeName} does not exist please retrive data`);
       }
     };
   });
