@@ -1,4 +1,4 @@
-import GrapesJS from "components/Editor";
+import {TemplateEditor} from "components/Editor";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal, Button, TextInput, Flex, NumberInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
@@ -38,7 +38,7 @@ export default function NewDesign(): JSX.Element {
 
   if (modalData !== undefined) {
     return (
-      <GrapesJS id="editor"
+      <TemplateEditor id="editor"
       canvasSize={{
         height: modalData.height,
         width: modalData.width

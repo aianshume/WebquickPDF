@@ -39,6 +39,16 @@ export function PaperEditor({ id, config, onSave, canvasSize }: GrapesJSProps) {
           }
         ],
       },
+      pageManager: {
+        pages: [
+          {
+            name: "page 1",
+            id: '1',
+            styles: `.my-class { color: red }`, // or a JSON of styles
+            component: '<div class="my-class">My element</div>', // or a JSON of components
+          }
+       ]
+      },
       storageManager: false,
       plugins: [gjsBasicBlock, basicCustomPlugin, grapesjsFontPlugin, gjsPluginExport, grapesjsPageManagerPlugin],
       pluginsOpts: {

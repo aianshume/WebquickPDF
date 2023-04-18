@@ -1,4 +1,4 @@
-import GrapesJS from "components/Editor";
+import {PaperEditor} from "components/Editor";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal, Button, TextInput, Flex, NumberInput } from "@mantine/core";
 import { DatePickerInput } from "@mantine/dates";
@@ -39,7 +39,7 @@ export default function NewPage(): JSX.Element {
 
   if (modalData !== undefined) {
     return (
-      <GrapesJS
+      <PaperEditor
         id="editor"
         canvasSize={{
           height: modalData.height,

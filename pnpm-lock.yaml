@@ -46,9 +46,6 @@ dependencies:
   grapesjs-plugin-ckeditor:
     specifier: ^0.0.10
     version: 0.0.10(ckeditor@4.12.1)(grapesjs@0.21.1)
-  grapesjs-project-manager:
-    specifier: ^2.0.5
-    version: 2.0.5
   localforage:
     specifier: ^1.10.0
     version: 1.10.0
@@ -99,12 +96,15 @@ devDependencies:
   lit-html:
     specifier: ^2.7.2
     version: 2.7.2
+  sass:
+    specifier: ^1.62.0
+    version: 1.62.0
   typescript:
     specifier: ^4.9.5
     version: 4.9.5
   vite:
     specifier: ^4.2.1
-    version: 4.2.1
+    version: 4.2.1(sass@1.62.0)
   vite-tsconfig-paths:
     specifier: ^4.2.0
     version: 4.2.0(typescript@4.9.5)(vite@4.2.1)
@@ -2652,7 +2652,7 @@ packages:
       '@babel/plugin-transform-react-jsx-source': 7.19.6(@babel/core@7.21.4)
       magic-string: 0.27.0
       react-refresh: 0.14.0
-      vite: 4.2.1
+      vite: 4.2.1(sass@1.62.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -3571,10 +3571,6 @@ packages:
       entities: 2.2.0
     dev: true
 
-  /dom-to-image@2.6.0:
-    resolution: {integrity: sha512-Dt0QdaHmLpjURjU7Tnu3AgYSF2LuOmksSGsUcE6ItvJoCWTBEmiMXcqBdNSAm9+QbbwD7JMoVsuuKX6ZVQv1qA==}
-    dev: false
-
   /domelementtype@2.3.0:
     resolution: {integrity: sha512-OLETBj6w0OsagBwdXnPdN0cnMfF9opN69co+7ZrbfPGrdpPVNBUj02spi6B1N7wChLQiPn4CSH/zJvXw56gmHw==}
     dev: true
@@ -4110,12 +4106,6 @@ packages:
     resolution: {integrity: sha512-S444lO7v8jODJ/ApMHIEU2f63MRRHkq+1xarFU/PNwpp/43wwKTTySila+PZzVEQvlZFlVQxYA+qwoI337vwcg==}
     dev: true
 
-  /grapesjs-project-manager@2.0.5:
-    resolution: {integrity: sha512-7iFTq0+tTi7JJ15R1jxVsUkthNAvFdicajpmUByfNSZCqJzAh3mcRUUZf1ldXM5xPJtuvOW3x3gz/M6/Za3Dxw==}
-    dependencies:
-      dom-to-image: 2.6.0
-    dev: false
-
   /grapesjs@0.21.1:
     resolution: {integrity: sha512-gbOQtnF+lEHJBD5LnZ1FR7oMk3YjLP9S8IeH2pC2wUEEkvXocWIQxyiJCo9CkSUexHNDEIFZg6xDYVcpy0yPWg==}
     dependencies:
@@ -4304,6 +4294,10 @@ packages:
   /immer@9.0.21:
     resolution: {integrity: sha512-bc4NBHqOqSfRW7POMkHd51LvClaeMXpm8dx0e8oE2GORbq5aRK7Bxl4FyzVLdGtLmvLKL7BTDBG5ACQm4HWjTA==}
     dev: false
+
+  /immutable@4.3.0:
+    resolution: {integrity: sha512-0AOCmOip+xgJwEVTQj1EfiDDOkPmuyllDuTuEX+DDXUgapLAsBIfkg3sxCYyCEA8mQqZrrxPUGjcOQ2JS3WLkg==}
+    dev: true
 
   /import-fresh@3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
@@ -5644,6 +5638,16 @@ packages:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
     dev: true
 
+  /sass@1.62.0:
+    resolution: {integrity: sha512-Q4USplo4pLYgCi+XlipZCWUQz5pkg/ruSSgJ0WRDSb/+3z9tXUOkQ7QPYn4XrhZKYAK4HlpaQecRwKLJX6+DBg==}
+    engines: {node: '>=14.0.0'}
+    hasBin: true
+    dependencies:
+      chokidar: 3.5.3
+      immutable: 4.3.0
+      source-map-js: 1.0.2
+    dev: true
+
   /scheduler@0.23.0:
     resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
     dependencies:
@@ -6261,13 +6265,13 @@ packages:
       debug: 4.3.4
       globrex: 0.1.2
       tsconfck: 2.1.1(typescript@4.9.5)
-      vite: 4.2.1
+      vite: 4.2.1(sass@1.62.0)
     transitivePeerDependencies:
       - supports-color
       - typescript
     dev: true
 
-  /vite@4.2.1:
+  /vite@4.2.1(sass@1.62.0):
     resolution: {integrity: sha512-7MKhqdy0ISo4wnvwtqZkjke6XN4taqQ2TBaTccLIpOKv7Vp2h4Y+NpmWCnGDeSvvn45KxvWgGyb0MkHvY1vgbg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -6296,6 +6300,7 @@ packages:
       postcss: 8.4.21
       resolve: 1.22.2
       rollup: 3.20.2
+      sass: 1.62.0
     optionalDependencies:
       fsevents: 2.3.2
     dev: true

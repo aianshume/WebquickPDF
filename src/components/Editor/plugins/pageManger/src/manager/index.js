@@ -7,14 +7,14 @@ export default class PagesApp extends UI {
         this.selectPage = this.selectPage.bind(this);
         this.removePage = this.removePage.bind(this);
         this.isSelected = this.isSelected.bind(this);
-        this.handleNameInput = this.handleNameInput.bind(this);
+        this.handlePageNumber = this.handlePageNumber.bind(this);
         this.openEdit = this.openEdit.bind(this);
 
         /* Set initial app state */
         this.state = {
             editablePageId: '',
             isShowing: true,
-            nameText: '',
+            pageNumber: '',
             pages: [],
             loading: false
         };
@@ -52,10 +52,9 @@ export default class PagesApp extends UI {
     }
 
     removePage(e) {
-        if (this.opts.confirmDeleteProject()) {
-            this.pm.remove(e.currentTarget.dataset.key);
-            this.update();
-        }
+        console.log(e.currentTarget.dataset.key)
+        this.pm.remove(e.currentTarget.dataset.key);
+        this.update();
     }
 
     openEdit(e) {
@@ -76,18 +75,21 @@ export default class PagesApp extends UI {
 
     addPage() {
         const { pm } = this;
-        const { nameText } = this.state
-        if (!nameText) return;
+        const { pageNumber } = this.state
+        // console.log(pageNumber)
+        if (!pageNumber) return;
         pm.add({
-            name: nameText,
+            name: `page ${pageNumber + 1}`,
+            id: `${pageNumber + 1}`,
             component: ''
         });
         this.update();
     }
 
-    handleNameInput(e) {
+    handlePageNumber(e) {
+        // console.log(e)
         this.setStateSilent({
-            nameText: e.target.value.trim()
+            pageNumber: e
         })
     }
 
@@ -97,16 +99,19 @@ export default class PagesApp extends UI {
 
         if (loading) return opts.loader || '<div>Loading pages...</div>';
 
-        return pages.map((page, i) => `<div 
-                data-id="${i}" 
-                data-key="${page.get('private') ? '' : (page.id || page.get('name'))}"  
-                class="page ${isSelected(page) ? 'selected' : ''}"
-            >
-                <i class="fa fa-file-o" style="margin:5px;"></i>
-                ${page.get('name') || page.id}
-                ${isSelected(page) || page.get('internal') ? '' : `<span class="page-close" data-key="${page.id || page.get('name')}">&Cross;</span>`}
-                ${page.get('internal') ? '' : `<span class="page-edit" data-key="${page.id || page.get('name')}"><i class="fa fa-hand-pointer-o"></i></span>`}
-            </div>`).join("\n");
+        return pages.map((page, i) => {
+            this.handlePageNumber(Number(page.id));
+            return `<div 
+            data-id="${i}" 
+            data-key="${page.get('private') ? '' : (page.id || page.get('name'))}"  
+            class="page ${isSelected(page) ? 'selected' : ''}"
+        >
+            <i class="fa fa-file-o" style="margin:5px;"></i>
+            ${page.get('name') || page.id}
+            ${isSelected(page) || page.get('internal') ? '' : `<span class="page-close" data-key="${page.id || page.get('name')}">&Cross;</span>`}
+            ${page.get('internal') ? '' : `<span class="page-edit" data-key="${page.id || page.get('name')}"><i class="fa fa-hand-pointer-o"></i></span>`}
+        </div>`
+        }).join("\n");
     }
 
     update() {
@@ -127,19 +132,11 @@ export default class PagesApp extends UI {
                 <div class="pages">
                     ${this.renderPagesList()}
                 </div>
-                <div  class="flex-row">
-                    <input 
-                        class="tm-input sm" 
-                        type="text" 
-                        placeholder="${editor.I18n.t('grapesjs-project-manager.pages.placeholder')}" 
-                    />
-                </div>
                 <div class="add-page">
                     ${editor.I18n.t('grapesjs-project-manager.pages.new')}
                 </div>
             </div>`);
         cont.find('.add-page').on('click', this.addPage);
-        cont.find('input').on('change', this.handleNameInput);
 
         this.$el = cont;
         return cont;
