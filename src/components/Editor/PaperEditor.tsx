@@ -75,7 +75,7 @@ export function PaperEditor({ id, config, onSave, canvasSize }: GrapesJSProps) {
       id: 'open-pages',
       className: 'fa fa-file-o',
       attributes: {
-          title: 'Take Screenshot'
+          title: 'pages'
       },
       command: 'open-pages',
       togglable: false
