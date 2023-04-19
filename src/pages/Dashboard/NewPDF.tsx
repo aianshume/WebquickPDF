@@ -4,7 +4,8 @@ import { Modal, Button, TextInput, Flex, NumberInput } from "@mantine/core";
 import { DatePickerInput } from "@mantine/dates";
 import { useForm } from "@mantine/form";
 import { useState } from "react";
-import { inToPx } from "services/utils";
+import { inToPx, saveAsPDF } from "services/utils";
+import type { htmlObject } from "components/Editor";
 
 interface defaultFormValue {
   date: Date;
@@ -24,8 +25,8 @@ export default function NewPage(): JSX.Element {
     },
   });
 
-  const handleSave = (html: string) => {
-    console.log("HTML saved:", html);
+  const handleSave = (htmlStrings: htmlObject[]) => {
+    saveAsPDF(htmlStrings);
   };
 
   const handleModalSubmit = (values: defaultFormValue) => {

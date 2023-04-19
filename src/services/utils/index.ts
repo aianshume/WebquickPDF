@@ -1,3 +1,5 @@
+import {saveAsPDF} from "./exportAsPdf"
+
 /**
  * function to convert Text with sapce to text with dashes
  * @param text: string
@@ -38,4 +40,8 @@ export function getHttpImage(id: string) {
 export function inToPx(inch: number): number {
   const pxPerIn = 96;
   return Math.round(inch * pxPerIn);
+}
+
+export {
+  saveAsPDF
 }
