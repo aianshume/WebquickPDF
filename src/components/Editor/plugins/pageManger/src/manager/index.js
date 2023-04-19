@@ -108,7 +108,8 @@ export default class PagesApp extends UI {
         >
             <i class="fa fa-file-o" style="margin:5px;"></i>
             ${page.get('name') || page.id}
-            ${isSelected(page) || page.get('internal') ? '' : `<span class="page-close" data-key="${page.id || page.get('name')}">&Cross;</span>`}
+            ${isSelected(page) || page.get('internal') ? '' : `<span class="page-close" data-key="${page.id || page.get('name')}"><i class="fa fa-times"></i>
+            </span>`}
             ${page.get('internal') ? '' : `<span class="page-edit" data-key="${page.id || page.get('name')}"><i class="fa fa-hand-pointer-o"></i></span>`}
         </div>`
         }).join("\n");
