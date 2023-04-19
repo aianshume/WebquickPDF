@@ -2,9 +2,10 @@ import LoginPage from "pages/Login"
 import { useEffect, useState } from "react";
 import { auth } from "services/firebase";
 import Dashboard from "pages/Dashboard";
+import {LoadingOverlay, Center} from "@mantine/core"
 
 export default function App() {
-  const [isLogin, setIsLogin] = useState<boolean>(false);
+  const [isLogin, setIsLogin] = useState<boolean | string>('');
 
   useEffect(()=> {
     auth.onAuthStateChanged((user: any) => {
@@ -24,5 +25,11 @@ export default function App() {
     return <Dashboard/>
   }
 
-  return <LoginPage/>
+  if (isLogin === false){
+    return <LoginPage/>
+  }
+
+  return(
+    <LoadingOverlay visible={true} />
+  )
 }
