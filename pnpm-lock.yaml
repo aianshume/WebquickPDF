@@ -46,6 +46,9 @@ dependencies:
   grapesjs-plugin-ckeditor:
     specifier: ^0.0.10
     version: 0.0.10(ckeditor@4.12.1)(grapesjs@0.21.1)
+  html2pdf:
+    specifier: ^0.0.11
+    version: 0.0.11
   localforage:
     specifier: ^1.10.0
     version: 1.10.0
@@ -4199,6 +4202,10 @@ packages:
       tapable: 2.2.1
       webpack: 5.79.0(webpack-cli@5.0.1)
     dev: true
+
+  /html2pdf@0.0.11:
+    resolution: {integrity: sha512-Kx3I5r7lazHZzZv5lDk59jQoTxqaEGlf2BcGNvzWGPQVu0hE8jYCk4hboksuaCvmMJPa0S0A+156ZbE71Wdo2w==}
+    dev: false
 
   /htmlparser2@6.1.0:
     resolution: {integrity: sha512-gyyPk6rgonLFEDGoeRgQNaEUvdJ4ktTmmUh/h2t7s+M8oPpIPxgNACWa+6ESR57kXstwqPiCut0V8NRpcwgU7A==}

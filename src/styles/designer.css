@@ -2,7 +2,7 @@
 .gjs-cv-canvas {
     width: 100%;
     height: 100%;
-    max-width: 1000px;
-    max-height: 90vh; /*29 inch*/
+    max-width: 1150px;
+    max-height: 95vh; /*29 inch*/
     overflow: auto;
   }

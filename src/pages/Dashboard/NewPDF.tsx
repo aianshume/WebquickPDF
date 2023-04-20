@@ -4,7 +4,7 @@ import { Modal, Button, TextInput, Flex, NumberInput } from "@mantine/core";
 import { DatePickerInput } from "@mantine/dates";
 import { useForm } from "@mantine/form";
 import { useState } from "react";
-import { inToPx, saveAsPDF } from "services/utils";
+import { saveAsPDF } from "services/utils";
 import type { htmlObject } from "components/Editor";
 
 interface defaultFormValue {
@@ -20,8 +20,8 @@ export default function NewPage(): JSX.Element {
   const form = useForm<defaultFormValue>({
     initialValues: {
       date: new Date(),
-      height: 51,
-      width: 31,
+      height: 21,
+      width: 15,
     },
   });
 
@@ -42,8 +42,8 @@ export default function NewPage(): JSX.Element {
     close(); // to close opened modal
     setModalData({
       date: values.date,
-      height: inToPx(values.height),
-      width: inToPx(values.width),
+      height: values.height,
+      width: values.width,
     });
   };
 

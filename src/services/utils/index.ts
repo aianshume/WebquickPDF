@@ -42,6 +42,11 @@ export function inToPx(inch: number): number {
   return Math.round(inch * pxPerIn);
 }
 
+export function inToPt(inch: number): number {
+  const ptPrIn = 72;
+  return Math.round(inch * ptPrIn);
+}
+
 export {
   saveAsPDF
 }

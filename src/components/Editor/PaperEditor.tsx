@@ -35,8 +35,8 @@ export function PaperEditor({ id, config, onSave, canvasSize }: GrapesJSProps) {
           {
             id: 'paper',
             name: 'paper',
-            width: `${canvasSize?.width}px`,
-            height: `${canvasSize?.height}px`,
+            width: `${canvasSize?.width}in`,
+            height: `${canvasSize?.height}in`,
           }
         ],
       },
@@ -45,12 +45,12 @@ export function PaperEditor({ id, config, onSave, canvasSize }: GrapesJSProps) {
           {
             name: "page 1",
             id: '1',
-            styles: `.body {  width: ${canvasSize?.width}px; height: ${canvasSize?.height}px;}`,
-            component: '<div class="body"></div>', // or a JSON of components
+            styles: ``,
+            component: '', // or a JSON of components
           }
        ]
       },
-      storageManager: true,
+      storageManager: false,
       plugins: [gjsBasicBlock, basicCustomPlugin, grapesjsFontPlugin, gjsPluginExport, grapesjsPageManagerPlugin],
       pluginsOpts: {
         [grapesjsFontPlugin]: {
@@ -58,8 +58,8 @@ export function PaperEditor({ id, config, onSave, canvasSize }: GrapesJSProps) {
           api_key: "AIzaSyAdJTYSLPlKz4w5Iqyy-JAF2o8uQKd1FKc"
         },
         [grapesjsPageManagerPlugin]: {
-          width: `${canvasSize?.width}px`, // new page width
-          height: `${canvasSize?.height}px`, // new page height
+          width: `${canvasSize?.width}in`, // new page width
+          height: `${canvasSize?.height}in`, // new page height
         }
       }
     });

@@ -80,8 +80,8 @@ export default class PagesApp extends UI {
         pm.add({
             name: `page ${pageNumber + 1}`,
             id: `${pageNumber + 1}`,
-            styles: `.body {  width: ${opts?.width}px; height: ${opts?.height}px;}`,
-            component: '<div class="body"></div>'
+            // styles: `.body {  width: ${opts?.width}px; height: ${opts?.height}px;}`,
+            component: '<div class="html2pdf__page-break"></div>'
         });
         this.update();
     }
