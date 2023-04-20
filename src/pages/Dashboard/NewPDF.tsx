@@ -1,4 +1,4 @@
-import {PaperEditor} from "components/Editor";
+import { PaperEditor } from "components/Editor";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal, Button, TextInput, Flex, NumberInput } from "@mantine/core";
 import { DatePickerInput } from "@mantine/dates";
@@ -26,7 +26,16 @@ export default function NewPage(): JSX.Element {
   });
 
   const handleSave = (htmlStrings: htmlObject[]) => {
-    saveAsPDF(htmlStrings);
+    console.log(htmlStrings)
+    let allCss = ""
+    let allHtml = ""
+
+    // saving all strings in one
+    for (let i = 0; i < htmlStrings.length; i++) {
+      allCss = allCss.concat(htmlStrings[i].css);
+      allHtml = allHtml.concat(htmlStrings[i].htmlBody);
+    }
+    saveAsPDF(allCss, allHtml);  
   };
 
   const handleModalSubmit = (values: defaultFormValue) => {

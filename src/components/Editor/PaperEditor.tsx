@@ -45,12 +45,12 @@ export function PaperEditor({ id, config, onSave, canvasSize }: GrapesJSProps) {
           {
             name: "page 1",
             id: '1',
-            styles: `body {  width: ${canvasSize?.width}px; height: ${canvasSize?.height}px;}`,
-            component: '<div class="my-class">My element</div>', // or a JSON of components
+            styles: `.body {  width: ${canvasSize?.width}px; height: ${canvasSize?.height}px;}`,
+            component: '<div class="body"></div>', // or a JSON of components
           }
        ]
       },
-      storageManager: false,
+      storageManager: true,
       plugins: [gjsBasicBlock, basicCustomPlugin, grapesjsFontPlugin, gjsPluginExport, grapesjsPageManagerPlugin],
       pluginsOpts: {
         [grapesjsFontPlugin]: {
