@@ -1,15 +1,24 @@
-// @ts-ignore
-import html2pdf from "html2pdf"
+function addScript(window: Window, src: string) {
+  return new Promise((resolve, reject) => {
+    const s = window.document.createElement("script");
+
+    s.setAttribute("src", src);
+    s.addEventListener("load", resolve);
+    s.addEventListener("error", reject);
+
+    window.document.body.appendChild(s);
+  });
+}
 
 export function saveAsPDF(allCss: string, allHtml: string) {
   console.log(allCss, allHtml);
-  let pdfRenderingWindow = window.open(
+  let pdfWindow = window.open(
     "",
     "PRINT",
     "height=650,width=900,top=100,left=150"
   );
 
-  pdfRenderingWindow?.document.write(`<!DOCTYPE html>
+  pdfWindow?.document.write(`<!DOCTYPE html>
     <html lang="Hi">
     <head>
         <meta charset="UTF-8">
@@ -21,5 +30,20 @@ export function saveAsPDF(allCss: string, allHtml: string) {
     </head>
     ${allHtml}
     </html>`);
-    
+
+    let html2pdf = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+    let html2pdfConfig = `let opt = {
+      margin: 0,
+      image: {type: 'jpeg', quality: 1},
+      html2canvas: {scale: 2},
+      enableLinks: true,
+      jsPDF: {unit: "in", format: [15, 21], orientation: 'portrait'}
+  }
+  var worker = html2pdf().from(document.body).set(opt).save();
+  `
+
+  addScript(pdfWindow as Window, html2pdf).then(() => {
+    const url = URL.createObjectURL(new Blob([html2pdfConfig]));
+    addScript(pdfWindow as Window, url).then(() => URL.revokeObjectURL(url));
+  });
 }
